@@ -16,15 +16,8 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1"
   },
-  "devDependencies": {
-    "react-scripts": "0.9.5"
-  },
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "node server/app.js",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "node server/app.js"
   },
   "proxy": "http://localhost:9000"
 }
