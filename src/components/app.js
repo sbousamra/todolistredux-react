@@ -12,7 +12,7 @@ class App extends React.Component {
   render() {
     return(
       <div>
-        <h1>First Page</h1>
+        <h1>First Page let's go!</h1>
       </div>
     )
   }
