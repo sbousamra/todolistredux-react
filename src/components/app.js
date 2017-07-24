@@ -10,7 +10,11 @@ class App extends React.Component {
   }
 
   render() {
-    return()
+    return(
+      <div>
+        <h1>First Page</h1>
+      </div>
+    )
   }
 }
 
