@@ -2,9 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as lodash from 'lodash';
 import styles from '../../public/css/styles.css';
-import {signupAction} from '../actions/actions.js';
+import TitleBar from './titleBar.js';
 
-class Signup extends React.Component {
+class SignupPage extends React.Component {
 
   constructor() {
     super();
@@ -14,7 +14,6 @@ class Signup extends React.Component {
     }
     this.trackUsername = this.trackUsername.bind(this)
     this.trackPassword = this.trackPassword.bind(this)
-    this.dispatchSignup = this.dispatchSignup.bind(this)
   }
 
   trackUsername(e) {
@@ -29,21 +28,17 @@ class Signup extends React.Component {
     })
   }
 
-  dispatchSignup() {
-    this.props.dispatch(signupAction(this.state.username, this.state.password))
-  }
-
   render() {
+    console.log(this.props)
     return(
       <div>
+        <TitleBar/>
         <input onChange={this.trackUsername}/>
         <input onChange={this.trackPassword}/>
-        <button onClick={this.dispatchSignup}>Submit</button>
+        <button onClick={this.props.dispatchSignup(this.state.username, this.state.password)}>Submit</button>
       </div>
     )
   }
 }
 
-const SignupConnect = connect()(Signup)
-
-export default SignupConnect
+export default SignupPage

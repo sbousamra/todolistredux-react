@@ -2,8 +2,8 @@ import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import axios from 'axios';
 import * as lodash from 'lodash';
-import Home from './home';
-import Signup from '../containers/signup';
+import HomePage from './HomePage';
+import SignupPage from './signupPage';
 
 class App extends React.Component {
 
@@ -15,8 +15,8 @@ class App extends React.Component {
     return(
       <Router>
         <div>
-          <Route exact path="/" component={(props) => <Home/>}/>
-          <Route path="/signup" component={(props) => <Signup/>}/>
+          <Route exact path="/" component={(props) => <HomePage/>}/>
+          <Route path="/signup" component={(props) => <SignupPage/>}/>
         </div>
       </Router>
     )

@@ -3,7 +3,7 @@ import * as lodash from 'lodash';
 import TitleBar from './titleBar';
 import styles from '../../public/css/styles.css';
 
-class Home extends React.Component {
+class HomePage extends React.Component {
 
   constructor() {
     super();
@@ -20,4 +20,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default HomePage;

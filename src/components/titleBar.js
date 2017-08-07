@@ -55,7 +55,7 @@ class TitleBar extends React.Component {
 
   handleSignup() {
     return (
-      <a className="nav-link">
+      <a className="nav-link" href="/signup">
         <button type="button" className="btn btn-lg btn-info" onClick={this.userSignup}>Sign Up</button>
       </a>
     )
