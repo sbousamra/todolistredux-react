@@ -18,6 +18,10 @@ module.exports = {
         query: {
           presets: ['es2015', 'react']
         }
+      },
+      {
+        test: /\.css/,
+        loaders: ['style-loader', 'css-loader']
       }
     ]
   },
@@ -34,7 +38,7 @@ module.exports = {
         'https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js',
         'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js',
       ],
-      append: true,
+      append: true
     })
   ]
 };

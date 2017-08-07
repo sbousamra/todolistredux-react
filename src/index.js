@@ -1,19 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app';
 import {createStore} from 'redux';
-import actions from './actions/actions';
+import {Provider} from 'react-redux';
+import App from './components/app';
+import reducer from './reducers/index';
 
-const store = createStore(actions)
+const store = createStore(reducer)
 
-const render = () => ReactDOM.render(
-  <App 
-  data={store.getState()}
-  add={(text) => store.dispatch({type: "ADD", text: text})}
-  toggle={(todo) => store.dispatch({type: "TOGGLE", text: todo})}
-  />,
+ReactDOM.render(
+  <Provider store={store}>
+    <App/>
+  </Provider>,
   document.getElementById("root")
 )
-
-render()
-store.subscribe(render)

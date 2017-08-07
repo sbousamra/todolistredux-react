@@ -9,7 +9,7 @@ app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 app.use(bodyParser.json())
 
-var database
+var database = {}
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html')); 
