@@ -1,7 +1,7 @@
-export const signupAction = function (username, password) {
-  return {
+export const signupAction = (username, password) => (
+  {
     type: "SIGNUP",
     username: username,
     password: password
   }
-}
+)

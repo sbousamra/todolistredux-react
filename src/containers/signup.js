@@ -44,10 +44,6 @@ class Signup extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {}
-}
-
-const SignupConnect = connect(mapStateToProps)(Signup)
+const SignupConnect = connect()(Signup)
 
 export default SignupConnect
