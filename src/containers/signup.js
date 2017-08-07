@@ -38,11 +38,16 @@ class Signup extends React.Component {
       <div>
         <input onChange={this.trackUsername}/>
         <input onChange={this.trackPassword}/>
-        <button onClick={() => this.dispatchSignup}>Submit</button>
+        <button onClick={this.dispatchSignup}>Submit</button>
       </div>
     )
   }
 }
-const SignupConnect = connect()(Signup)
 
-export default SignupConnect;
+function mapStateToProps(state) {
+  return {}
+}
+
+const SignupConnect = connect(mapStateToProps)(Signup)
+
+export default SignupConnect
