@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app';
 import {createStore} from 'redux';
-import actions from './components/actions';
+import actions from './actions/actions';
 
 const store = createStore(actions)
 

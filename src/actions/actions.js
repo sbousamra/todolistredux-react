@@ -9,12 +9,13 @@ import * as lodash from 'lodash';
       case "ADD":
         return lodash.extend({}, state, {[action.text]: {completed: false}})
       case "TOGGLE":
-        return lodash.map(state, (content, todo) => {
-            todo === action.text
-            ? {[todo]: {completed: !todo.completed}}
-            : todo 
+        lodash.map(state, (content, todo) => {
+          if (todo === action.text) {
+            return {[todo]: !content.completed}
+          } else {
+            return todo
           }
-        )
+        })
       default:
         return state
     }
