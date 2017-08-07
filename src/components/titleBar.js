@@ -56,7 +56,7 @@ class TitleBar extends React.Component {
   handleSignup() {
     return (
       <a className="nav-link">
-        <button type="button" className="btn btn-info" onClick={this.userSignup}>Sign Up</button>
+        <button type="button" className="btn btn-lg btn-info" onClick={this.userSignup}>Sign Up</button>
       </a>
     )
   }
@@ -65,38 +65,19 @@ class TitleBar extends React.Component {
     if (this.props.loggedin) {
       return (
         <a className="nav-link">
-          <button className="btn btn-primary btn-info" onClick={this.props.userLogout}>Log Out</button>
+          <button className="btn btn-lg btn-info" onClick={this.props.userLogout}>Log Out</button>
         </a>
       )
     } else {
       return (
         <a className="nav-link">
-          <button type="button" className="btn btn-info" onClick={this.userLogin}>Log In</button>
+          <button type="button" className="btn btn-lg btn-info" onClick={this.userLogin}>Log In</button>
         </a>
       )
     }
   }
 
   render() {
-
-    const boardsToLinks = lodash.map(this.props.boards, function(board, id) {
-      return (
-        <div key={id}>
-          <a href={"/boards/" + id} className="dropdown-item">{board.name}</a>
-        </div>
-      )
-    })
-
-    const boardsDropdown =
-      <div className="dropdown"> 
-        <button className="btn btn-primary btn-outline-info dropdown-toggle" id="boardsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Boards
-        </button>
-        <div className="dropdown-menu" aria-labelledby="boardsDropdown">
-          {boardsToLinks}
-        </div>
-      </div>
-
     if (this.props.loggedin) {
       return (
         <div className="container-fluid twitterTitleBarBackground">
@@ -120,7 +101,7 @@ class TitleBar extends React.Component {
             <div className="col-md-auto">
               <ul className="navbar-nav">
                 <a className="nav-link col-4"></a>
-                <a className="nav-link" href="#"><button className="btn btn-info">+</button></a>
+                <a className="nav-link" href="#"><button className="btn btn-lg btn-info">+</button></a>
                 {this.handleSignup()}
                 {this.handleLogout()}
               </ul>
@@ -136,7 +117,7 @@ class TitleBar extends React.Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             </div>
           </div>
-            <div className="col-4">
+            <div className="col-3">
               <a href="/">
                 <img src="http://yoganga.com/wp-content/uploads/2016/01/Twitter-Black.png" className="img-fluid twitterTitleBarLogo" alt="Responsive"/>
               </a>
@@ -144,7 +125,7 @@ class TitleBar extends React.Component {
             <div className="col-md-auto">
               <ul className="navbar-nav">
                 <a className="nav-link col-4"></a>
-                <a className="nav-link" href="#"><button className="btn btn-info">+</button></a>
+                <a className="nav-link" href="#"><button className="btn btn-lg btn-info">+</button></a>
                 {this.handleSignup()}
                 {this.handleLogout()}
               </ul>

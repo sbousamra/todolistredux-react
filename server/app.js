@@ -19,8 +19,24 @@ app.get('/signup', (req, res) => {
   res.status(200).send("Welcome to signup")
 })
 
+app.get('/timeline', (req, res) => {
+  res.status(200).send("Here's the timeline")
+})
+
 app.post('/signup', (req, res) => {
   res.status(200).send("Successful post to signup")
+})
+
+app.post('/login', (req, res) => {
+  res.status(200).send("Successful login")
+})
+
+app.post('/tweet/:id', (req, res) => {
+  res.status(200).send("You've tweeted")
+})
+
+app.delete('/delete', (req, res) => {
+  res.status(200).send("You've deleted")
 })
 
 var PORT = process.env.PORT || 9000;
