@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import App from './components/app';
-import reducer from './reducers/index';
+import rootReducer from './reducers/rootReducer';
 
-const store = createStore(reducer)
+const store = createStore(rootReducer)
 
 ReactDOM.render(
   <Provider store={store}>
@@ -13,3 +13,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 )
+
+console.log(store.getState())

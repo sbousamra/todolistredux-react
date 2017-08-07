@@ -3,18 +3,9 @@ import axios from 'axios';
 import * as lodash from 'lodash';
 
 export default (state = {}, action) => {
-  console.log(state)
   switch (action.type) {
-    case "ADD":
-      return lodash.extend({}, state, {[action.text]: {completed: false}})
-    case "TOGGLE":
-      lodash.map(state, (content, todo) => {
-        if (todo === action.text) {
-          return {[todo]: !content.completed}
-        } else {
-          return todo
-        }
-      })
+    case "SIGNUP":
+      return lodash.extend({}, state, {username: action.username, password: action.password})
     default:
       return state
   }

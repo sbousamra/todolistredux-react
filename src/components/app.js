@@ -1,9 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import axios from 'axios';
 import * as lodash from 'lodash';
-import styles from '../../public/css/styles.css';
-import TitleBar from './titleBar';
+import Home from './home';
+import Signup from '../containers/signup';
 
 class App extends React.Component {
 
@@ -13,11 +13,12 @@ class App extends React.Component {
 
   render() {
     return(
-      <div>
-        <TitleBar/>
-        <div className="container-fluid twitterHomePageBackground">
+      <Router>
+        <div>
+          <Route exact path="/" component={(props) => <Home/>}/>
+          <Route path="/signup" component={(props) => <Signup/>}/>
         </div>
-      </div>
+      </Router>
     )
   }
 }

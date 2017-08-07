@@ -1,18 +1,18 @@
 .twitterTitleBarBackground {
   width: 100%;
-  height: 120px;
+  height: 100px;
   background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/06/Twitter-Image-HD-768x432.jpg")
 }
 
 .twitterHomePageBackground {
   background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/06/Twitter-Desktop-Background-768x521.jpg");
-    width: 100%; 
-    height: 100%; 
-    position: fixed; 
-    background-size:cover;
-    left: 0px; 
-    top: 0px; 
-    z-index: -1; /* Ensure div tag stays behind content; -999 might work, too. */
+  width: 100%; 
+  height: 100%; 
+  position: fixed; 
+  background-size:cover;
+  left: 0px; 
+  top: 0px; 
+  z-index: -1;
 }
 
 .twitterTitleBarLogo {

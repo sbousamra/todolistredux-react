@@ -1,8 +1,6 @@
 import {combineReducers} from 'redux'
 import signup from './signup'
 
-const app = combineReducers({
-  signup
-})
+const rootReducer = signup
 
-export default app
+export default rootReducer
