@@ -48,7 +48,7 @@ class TitleBar extends React.Component {
   }
 
   handleLogout() {
-    if (this.props.loggedin) {
+    if (this.props.loggedIn) {
       return (
         <a className="nav-link">
           <button className="btn btn-lg btn-info" onClick={this.props.userLogout}>Log Out</button>
@@ -60,7 +60,7 @@ class TitleBar extends React.Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <form className="form-inline my-2 my-lg-0">
               <input className="form-control mr-sm-2" type="text" placeholder="Username"/>
-              <input className="form-control mr-sm-2" type="text" placeholder="Password"/>
+              <input className="form-control mr-sm-2" type="password" placeholder="Password"/>
             </form>
             <a className="nav-link" href="#"><button className="btn btn-lg btn-info">Login</button></a>
           </div>
@@ -70,31 +70,21 @@ class TitleBar extends React.Component {
   }
 
   render() {
-    if (this.props.loggedin) {
+    if (this.props.loggedIn) {
       return (
         <div className="container-fluid twitterTitleBarBackground">
           <nav className="navbar navbar-toggleable-md navbar-inverse twitterTitleBarBackground">
-          <div className="col-1">
-            {boardsDropdown}
-          </div>
-          <div className="col-4">
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <form className="form-inline my-2 my-lg-0">
-                <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
-                <button className="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-              </form>
-            </div>
+          <div className="col-5">
           </div>
             <div className="col-4">
               <a href="/">
-                <img src="https://cdn0.iconfinder.com/data/icons/twitter-ui-flat/48/Twitter_UI-01-128.png" className="img-fluid" alt="Responsive"/>
+                <img src="http://yoganga.com/wp-content/uploads/2016/01/Twitter-Black.png" className="img-fluid twitterTitleBarLogo" alt="Responsive"/>
               </a>
             </div>
             <div className="col-md-auto">
               <ul className="navbar-nav">
-                <a className="nav-link col-4"></a>
+                <a className="nav-link col-7"></a>
                 <a className="nav-link" href="#"><button className="btn btn-lg btn-info">+</button></a>
-                {this.handleSignup()}
                 {this.handleLogout()}
               </ul>
             </div>

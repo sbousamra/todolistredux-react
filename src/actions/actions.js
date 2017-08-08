@@ -5,3 +5,11 @@ export const signupAction = (username, password) => (
     password: password
   }
 )
+
+export const loginAction = (username, password) => (
+  {
+    type: "LOGIN",
+    username: username,
+    password: password
+  }
+)

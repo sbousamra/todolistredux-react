@@ -38,3 +38,28 @@
 .signupPageBtnSpacing {
   margin-top: 20px;
 }
+
+.signupPageHeader {
+  color: #333333;
+}
+
+.signedInBackground {
+  background-color: #e6ecf0;
+  width: 100%; 
+  height: 100%; 
+  position: fixed; 
+  background-size:cover;
+  left: 0px; 
+  top: 0px; 
+  z-index: -1;
+}
+
+.signedInUserCard {
+  margin-left: 100px;
+  margin-top: 20px;
+}
+
+.signedInUserTweets {
+  margin-left: 0px;
+  margin-top: 20px;
+}

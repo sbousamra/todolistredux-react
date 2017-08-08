@@ -34,13 +34,13 @@ class SignupPage extends React.Component {
         <TitleBar/>
           <div className="container-fluid">
             <div className="row justify-content-md-center signupPageInputSpacing ">
-              <h1 className="display-3 text-center">Sign up now!</h1>
+              <h1 className="display-3 text-center signupPageHeader">Sign up now!</h1>
             </div>
               <div className="row justify-content-md-center signupPageInputSpacing">
                 <div className="col-5">
                   <div className="form-group">
                   <input className="form-control mr-sm-2" type="text" placeholder="Username" onChange={this.trackUsername}/>
-                  <input className="form-control mr-sm-2" type="text" placeholder="Password" onChange={this.trackPassword}/>
+                  <input className="form-control mr-sm-2" type="password" placeholder="Password" onChange={this.trackPassword}/>
                   </div>
                   <div className="text-center">
                     <button className="btn btn-lg btn-success signupPageBtnSpacing" onClick={() => this.props.dispatchSignup(this.state.username, this.state.password)}>Submit</button>
