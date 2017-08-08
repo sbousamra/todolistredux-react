@@ -13,6 +13,58 @@ class HomePage extends React.Component {
   }
 
   render() {
+
+    const userCard = 
+      <div className="col-3 signedInUserCard">
+        <div className="card">
+          <img className="card-img-top" src="https://i.stack.imgur.com/526Tw.jpg"/>
+          <div className="card-block">
+            <h4 className="card-title text-center">Bass</h4>
+            <ul className="nav justify-content-center">
+              <li className="nav-item">
+                <a className="nav-link active" href="#">Tweets</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Following</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Followers</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    const tweets = 
+      <div className="col-4 signedInUserTweets">
+        <div className="card">
+          <div className="card-block">
+            <h4 className="card-title">Bass</h4>
+            <p className="card-text">This is where the tweet content will go.</p>
+            <ul className="nav justify-content-center">
+              <li className="nav-item">
+                <a className="nav-link active" href="#">Reply</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Retweet</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Like</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    const whoToFollow = 
+      <div className="col-3 signedInWhoToFollow">
+        <div className="card">
+          <div className="card-block">
+            <h4 className="card-title text-center">Who to follow</h4>
+          </div>
+        </div>
+      </div>
+
     if (this.state.loggedIn === false) {
       return(
         <div>
@@ -26,54 +78,15 @@ class HomePage extends React.Component {
         <div className="signedInBackground">
          <TitleBar loggedIn={this.state.loggedIn}/>
          <div className="container-fluid">
-         <div className="row">
-          <div className="col-3 signedInUserCard">
-            <div className="card">
-              <img className="card-img-top" src="https://i.stack.imgur.com/526Tw.jpg"/>
-              <div className="card-block">
-                <h4 className="card-title text-center">Bass</h4>
-                <nav className="navbar navbar-toggleable-md">
-                  <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul className="navbar-nav mr-auto mt-2 mt-md-0">
-                      <li className="nav-item active"> 
-                        <a className="nav-link" href="#">Tweets<span className="sr-only">(current)</span></a>
-                      </li>
-                      <li className="nav-item active">
-                        <a className="nav-link" href="#">Following <span className="sr-only">(current)</span></a>
-                      </li>
-                      <li className="nav-item active">
-                        <a className="nav-link" href="#">Followers</a>
-                      </li>
-                    </ul>
-                  </div>
-                </nav>
-              </div>
+           <div className="row">
+            <div className="col-1">
             </div>
-          </div>
-          <div className="col-5 signedInUserTweets">
-            <div className="card">
-              <img className="card-img-top" src="https://i.stack.imgur.com/526Tw.jpg"/>
-              <div className="card-block">
-                <h4 className="card-title text-center">Bass</h4>
-                <nav className="navbar navbar-toggleable-md">
-                  <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul className="navbar-nav mr-auto mt-2 mt-md-0">
-                      <li className="nav-item active"> 
-                        <a className="nav-link" href="#">Tweets<span className="sr-only">(current)</span></a>
-                      </li>
-                      <li className="nav-item active">
-                        <a className="nav-link" href="#">Following <span className="sr-only">(current)</span></a>
-                      </li>
-                      <li className="nav-item active">
-                        <a className="nav-link" href="#">Followers</a>
-                      </li>
-                    </ul>
-                  </div>
-                </nav>
-              </div>
+             {userCard}
+             {tweets}
+             {whoToFollow}
+            <div className="col-1">
             </div>
-          </div>
-         </div>
+           </div>
         </div>
         </div>
       )

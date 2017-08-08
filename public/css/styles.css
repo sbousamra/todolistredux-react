@@ -55,11 +55,16 @@
 }
 
 .signedInUserCard {
-  margin-left: 100px;
+  margin-left: 0px;
   margin-top: 20px;
 }
 
 .signedInUserTweets {
+  margin-left: 0px;
+  margin-top: 20px;
+}
+
+.signedInWhoToFollow {
   margin-left: 0px;
   margin-top: 20px;
 }
