@@ -14,5 +14,5 @@ function mapDispatchToProps(dispatch) {
   })
 }
 
-const SignupContainer = connect(mapStateToProps, mapDispatchToProps)(SignupPage)
-export default SignupContainer
+const Signup = connect(mapStateToProps, mapDispatchToProps)(SignupPage)
+export default Signup

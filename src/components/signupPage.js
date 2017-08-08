@@ -29,13 +29,12 @@ class SignupPage extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return(
       <div>
         <TitleBar/>
         <input onChange={this.trackUsername}/>
         <input onChange={this.trackPassword}/>
-        <button onClick={this.props.dispatchSignup(this.state.username, this.state.password)}>Submit</button>
+        <button onClick={() => this.props.dispatchSignup(this.state.username, this.state.password)}>Submit</button>
       </div>
     )
   }

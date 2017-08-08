@@ -9,8 +9,6 @@ class TitleBar extends React.Component {
       username: "",
       password: ""
     }
-    this.userSignup = this.userSignup.bind(this)
-    this.userLogin = this.userLogin.bind(this)
     this.handleUserInput = this.handleUserInput.bind(this)
     this.handlePasswordInput = this.handlePasswordInput.bind(this)
     this.handleSignup = this.handleSignup.bind(this)
@@ -23,18 +21,6 @@ class TitleBar extends React.Component {
       password: this.state.password
     }
     this.props.userSignup(newUser)
-    this.setState({
-      username: "",
-      password: ""
-    })
-  }
-
-  userLogin() {
-    const existingUser = {
-      username: this.state.username,
-      password: this.state.password
-    }
-    this.props.userLogin(existingUser)
     this.setState({
       username: "",
       password: ""
@@ -70,9 +56,14 @@ class TitleBar extends React.Component {
       )
     } else {
       return (
-        <a className="nav-link">
-          <button type="button" className="btn btn-lg btn-info" onClick={this.userLogin}>Log In</button>
-        </a>
+        <div className="col-4">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <form className="form-inline my-2 my-lg-0">
+              <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
+              <button className="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
       )
     }
   }
@@ -113,11 +104,9 @@ class TitleBar extends React.Component {
       return (
         <div className="container-fluid">
           <nav className="navbar navbar-toggleable-md navbar-inverse twitterTitleBarBackground">
-          <div className="col-5">
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            </div>
+          <div className="col-4">
           </div>
-            <div className="col-3">
+            <div className="col-1">
               <a href="/">
                 <img src="http://yoganga.com/wp-content/uploads/2016/01/Twitter-Black.png" className="img-fluid twitterTitleBarLogo" alt="Responsive"/>
               </a>
