@@ -59,9 +59,10 @@ class TitleBar extends React.Component {
         <div className="col-4">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <form className="form-inline my-2 my-lg-0">
-              <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
-              <button className="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+              <input className="form-control mr-sm-2" type="text" placeholder="Username"/>
+              <input className="form-control mr-sm-2" type="text" placeholder="Password"/>
             </form>
+            <a className="nav-link" href="#"><button className="btn btn-lg btn-info">Login</button></a>
           </div>
         </div>
       )
@@ -104,14 +105,14 @@ class TitleBar extends React.Component {
       return (
         <div className="container-fluid">
           <nav className="navbar navbar-toggleable-md navbar-inverse twitterTitleBarBackground">
-          <div className="col-4">
+          <div className="col-5">
           </div>
             <div className="col-1">
               <a href="/">
                 <img src="http://yoganga.com/wp-content/uploads/2016/01/Twitter-Black.png" className="img-fluid twitterTitleBarLogo" alt="Responsive"/>
               </a>
             </div>
-            <div className="col-md-auto">
+            <div className="col-4">
               <ul className="navbar-nav">
                 <a className="nav-link col-4"></a>
                 <a className="nav-link" href="#"><button className="btn btn-lg btn-info">+</button></a>

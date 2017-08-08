@@ -5,7 +5,11 @@ import * as lodash from 'lodash';
 export default (state = {}, action) => {
   switch (action.type) {
     case "SIGNUP":
-      return lodash.extend({}, state, {[action.username]: {password: action.password}})
+      if (action.username && action.password != "") {
+        return lodash.extend({}, state, {[action.username]: {password: action.password}})
+      } else {
+        return state
+      }
     default:
       return state
   }
