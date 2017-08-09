@@ -1,5 +1,6 @@
 import React from 'react';
 import lodash from 'lodash';
+import axios from 'axios';
 
 class TitleBar extends React.Component {
 
@@ -11,8 +12,7 @@ class TitleBar extends React.Component {
     }
     this.trackUsername = this.trackUsername.bind(this)
     this.trackPassword = this.trackPassword.bind(this)
-    this.handleSignup = this.handleSignup.bind(this)
-    this.handleLogout = this.handleLogout.bind(this)
+    this.loginApiRequest = this.loginApiRequest.bind(this)
   }
 
   trackUsername(e) {
@@ -27,38 +27,13 @@ class TitleBar extends React.Component {
     })
   }
 
-  handleSignup() {
-    return (
-      <a className="nav-link" href="/signup">
-        <button type="button" className="btn btn-lg btn-info">Sign Up</button>
-      </a>
-    )
-  }
-
-  handleLogout() {
-    if (this.props.loggedIn) {
-      return (
-        <a className="nav-link">
-          <button className="btn btn-lg btn-info" onClick={this.props.userLogout}>Log Out</button>
-        </a>
-      )
-    } else {
-      return (
-        <div className="col-4">
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <form className="form-inline my-2 my-lg-0">
-              <input className="form-control mr-sm-2" type="text" placeholder="Username" onChange={this.trackUsername}/>
-              <input className="form-control mr-sm-2" type="password" placeholder="Password" onChange={this.trackPassword}/>
-            </form>
-            <a className="nav-link" href="#">
-              <button className="btn btn-lg btn-info" onClick={() => this.props.dispatchLogin(this.state.username, this.state.password)}>
-                Login
-              </button>
-            </a>
-          </div>
-        </div>
-      )
-    }
+  loginApiRequest(username, password) {
+    const newUser = {username: username, password: password}
+    axios.post('/login', newUser).then((res) => {
+      this.props.dispatchLogin(res.data)
+    }).catch((error) => {
+      console.log(error)
+    })  
   }
 
   render() {
@@ -77,7 +52,9 @@ class TitleBar extends React.Component {
               <ul className="navbar-nav">
                 <a className="nav-link col-7"></a>
                 <a className="nav-link" href="#"><button className="btn btn-lg btn-info">+</button></a>
-                {this.handleLogout()}
+                <a className="nav-link">
+                  <button className="btn btn-lg btn-info" onClick={this.props.userLogout}>Log Out</button>
+                </a>
               </ul>
             </div>
           </nav>
@@ -97,8 +74,22 @@ class TitleBar extends React.Component {
             <div className="col-4">
               <ul className="navbar-nav">
                 <a className="nav-link col-4"></a>
-                {this.handleSignup()}
-                {this.handleLogout()}
+                <a className="nav-link" href="/signup">
+                  <button type="button" className="btn btn-lg btn-info">Sign Up</button>
+                </a>
+                <div className="col-4">
+                  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form className="form-inline my-2 my-lg-0">
+                      <input className="form-control mr-sm-2" type="text" placeholder="Username" onChange={this.trackUsername}/>
+                      <input className="form-control mr-sm-2" type="password" placeholder="Password" onChange={this.trackPassword}/>
+                    </form>
+                    <a className="nav-link" href="#">
+                      <button className="btn btn-lg btn-info" onClick={() => this.loginApiRequest(this.state.username, this.state.password)}>
+                        Login
+                      </button>
+                    </a>
+                  </div>
+                </div>
               </ul>
             </div>
           </nav>

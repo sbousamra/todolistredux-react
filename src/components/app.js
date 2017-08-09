@@ -4,7 +4,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import axios from 'axios';
 import * as lodash from 'lodash';
 import Home from '../containers/home';
-import Signup from '../containers/signup';
+import Signup from './signup'
 
 class App extends React.Component {
 

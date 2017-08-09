@@ -5,6 +5,7 @@ import {loginAction} from '../actions/actions.js';
 import TitleBar from '../components/titleBar.js';
 
 function mapStateToProps(state) {
+  console.log(state.login)
   return({
     loggedIn: state.loggedIn
   })
@@ -12,7 +13,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return ({
-    dispatchLogin: (username, password) => {dispatch(loginAction(username, password))}
+    dispatchLogin: (twitterData) => {dispatch(loginAction(twitterData))}
   })
 }
 
