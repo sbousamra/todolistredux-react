@@ -1,6 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import lodash from 'lodash';
 import styles from '../../public/css/styles.css';
 import TitleBar from '../containers/titleBar.js';
 

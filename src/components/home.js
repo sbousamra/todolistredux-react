@@ -21,7 +21,7 @@ class Home extends React.Component {
     const userCard = 
       <div className="col-3 signedInUserCard">
         <div className="card">
-          <img className="card-img-top" src="https://lh5.googleusercontent.com/-AIesT6OinzY/TW1Y8t5turI/AAAAAAAAAnM/dJaMlQ__33I/s1600/brad-pitt3.jpg"/>
+          <img className="card-img-top" src="https://steamuserimages-a.akamaihd.net/ugc/287476444271080327/40DC4BC571CBAB9CDC651920F35A0CE135393934/"/>
           <div className="card-block">
             <h4 className="card-title text-center">Bass</h4>
             <ul className="nav justify-content-center">
