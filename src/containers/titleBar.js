@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import lodash from 'lodash';
-import {loginAction} from '../actions/actions.js';
+import {loginAction, logoutAction} from '../actions/actions.js';
 import TitleBar from '../components/titleBar.js';
 
 function mapStateToProps(state) {
@@ -12,7 +12,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return ({
-    dispatchLogin: (twitterData) => {dispatch(loginAction(twitterData))}
+    dispatchLogin: (twitterData) => {dispatch(loginAction(twitterData))},
+    dispatchLogout: () => {dispatch(logoutAction)}
   })
 }
 

@@ -8,3 +8,7 @@ export const loginAction = (twitterData) => (
     twitterData: twitterData
   }
 )
+
+export const logoutAction = {
+  type: "LOGOUT"
+}

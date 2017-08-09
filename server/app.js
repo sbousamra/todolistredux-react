@@ -82,6 +82,10 @@ app.delete('/delete', (req, res) => {
   res.status(200).send("You've deleted")
 })
 
+app.get('/logout', (req,res) => {
+  res.status(200).cookie("token", "deleting", {expires: new Date(0)}).end()
+})
+
 app.get('/timeline', authenticate, (req, res) => {
   res.status(200).json(twitterData)
 })

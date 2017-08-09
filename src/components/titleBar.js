@@ -13,6 +13,7 @@ class TitleBar extends React.Component {
     this.trackUsername = this.trackUsername.bind(this)
     this.trackPassword = this.trackPassword.bind(this)
     this.loginApiRequest = this.loginApiRequest.bind(this)
+    this.logoutApiRequest = this.logoutApiRequest.bind(this)
   }
 
   trackUsername(e) {
@@ -36,6 +37,14 @@ class TitleBar extends React.Component {
     })  
   }
 
+  logoutApiRequest() {
+    axios.get('/logout').then(() => {
+      this.props.dispatchLogout()
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
   render() {
     if (this.props.loggedIn) {
       return (
@@ -53,7 +62,7 @@ class TitleBar extends React.Component {
                 <a className="nav-link col-7"></a>
                 <a className="nav-link" href="#"><button className="btn btn-lg btn-info">+</button></a>
                 <a className="nav-link">
-                  <button className="btn btn-lg btn-info" onClick={this.props.userLogout}>Log Out</button>
+                  <button className="btn btn-lg btn-info" onClick={this.logoutApiRequest}>Log Out</button>
                 </a>
               </ul>
             </div>
