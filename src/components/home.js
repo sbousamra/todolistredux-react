@@ -1,5 +1,4 @@
 import React from 'react';
-import * as lodash from 'lodash';
 import TitleBar from '../containers/titleBar';
 import styles from '../../public/css/styles.css';
 
@@ -22,7 +21,7 @@ class Home extends React.Component {
     const userCard = 
       <div className="col-3 signedInUserCard">
         <div className="card">
-          <img className="card-img-top" src="https://i.stack.imgur.com/526Tw.jpg"/>
+          <img className="card-img-top" src="https://lh5.googleusercontent.com/-AIesT6OinzY/TW1Y8t5turI/AAAAAAAAAnM/dJaMlQ__33I/s1600/brad-pitt3.jpg"/>
           <div className="card-block">
             <h4 className="card-title text-center">Bass</h4>
             <ul className="nav justify-content-center">

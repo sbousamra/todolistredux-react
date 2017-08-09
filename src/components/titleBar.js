@@ -1,6 +1,4 @@
 import React from 'react';
-import lodash from 'lodash';
-import axios from 'axios';
 
 class TitleBar extends React.Component {
 
@@ -12,8 +10,6 @@ class TitleBar extends React.Component {
     }
     this.trackUsername = this.trackUsername.bind(this)
     this.trackPassword = this.trackPassword.bind(this)
-    this.loginApiRequest = this.loginApiRequest.bind(this)
-    this.logoutApiRequest = this.logoutApiRequest.bind(this)
   }
 
   trackUsername(e) {
@@ -25,23 +21,6 @@ class TitleBar extends React.Component {
   trackPassword(e) {
     this.setState({
       password: e.target.value
-    })
-  }
-
-  loginApiRequest(username, password) {
-    const newUser = {username: username, password: password}
-    axios.post('/login', newUser).then((res) => {
-      this.props.dispatchLogin(res.data)
-    }).catch((error) => {
-      console.log("Bad username and/or password")
-    })  
-  }
-
-  logoutApiRequest() {
-    axios.get('/logout').then(() => {
-      this.props.dispatchLogout()
-    }).catch((error) => {
-      console.log(error)
     })
   }
 
@@ -62,7 +41,7 @@ class TitleBar extends React.Component {
                 <a className="nav-link col-7"></a>
                 <a className="nav-link" href="#"><button className="btn btn-lg btn-info">+</button></a>
                 <a className="nav-link">
-                  <button className="btn btn-lg btn-info" onClick={this.logoutApiRequest}>Log Out</button>
+                  <button className="btn btn-lg btn-info" onClick={this.props.dispatchLogout}>Log Out</button>
                 </a>
               </ul>
             </div>
@@ -93,7 +72,7 @@ class TitleBar extends React.Component {
                       <input className="form-control mr-sm-2" type="password" placeholder="Password" onChange={this.trackPassword}/>
                     </form>
                     <a className="nav-link" href="#">
-                      <button className="btn btn-lg btn-info" onClick={() => this.loginApiRequest(this.state.username, this.state.password)}>
+                      <button className="btn btn-lg btn-info" onClick={() => this.props.dispatchLogin(this.state.username, this.state.password)}>
                         Login
                       </button>
                     </a>
