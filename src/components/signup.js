@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import axios from 'axios';
 import * as lodash from 'lodash';
 import styles from '../../public/css/styles.css';
 import TitleBar from '../containers/titleBar.js';
@@ -14,6 +15,7 @@ class Signup extends React.Component {
     }
     this.trackUsername = this.trackUsername.bind(this)
     this.trackPassword = this.trackPassword.bind(this)
+    this.signupApiRequest = this.signupApiRequest.bind(this)
   }
 
   trackUsername(e) {
@@ -26,6 +28,11 @@ class Signup extends React.Component {
     this.setState({
       password: e.target.value
     })
+  }
+
+  signupApiRequest(username, password) {
+    const newUser = {username: username, password: password}
+    axios.post('/signup', newUser).then().catch((error) => {console.log(error)})  
   }
 
   render() {
@@ -43,7 +50,7 @@ class Signup extends React.Component {
               <input className="form-control mr-sm-2" type="password" placeholder="Password" onChange={this.trackPassword}/>
               </div>
               <div className="text-center">
-                <button className="btn btn-lg btn-success signupPageBtnSpacing" onClick={() => this.props.dispatchSignup(this.state.username, this.state.password)}>Submit</button>
+                <button className="btn btn-lg btn-success signupPageBtnSpacing" onClick={() => this.signupApiRequest(this.state.username, this.state.password)}>Submit</button>
               </div>               
             </div>
           </div>

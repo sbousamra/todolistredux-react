@@ -60,6 +60,7 @@ app.post('/signup', (req, res) => {
     res.status(409).send("That username already exists!")
   } else {
     addUser(req.body.username, req.body.password)
+    console.log(database)
     res.status(200).send("Welcome to Bass's Twitter!")
   }
 })
