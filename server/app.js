@@ -9,7 +9,7 @@ app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 app.use(bodyParser.json())
 
-var database = {}
+var database = {tokens: {}}
 
 function randId() {
   return Math.random().toString(36).substr(2, 10);
@@ -24,8 +24,7 @@ function addUser(username, password) {
         following: {},
         followers: {}
       }
-    },
-    tokens: {}
+    }
   })
 }
 
@@ -60,7 +59,6 @@ app.post('/signup', (req, res) => {
     res.status(409).send("That username already exists!")
   } else {
     addUser(req.body.username, req.body.password)
-    console.log(database)
     res.status(200).send("Welcome to Bass's Twitter!")
   }
 })
@@ -70,6 +68,7 @@ app.post('/login', (req, res) => {
   if (verifyUser(req.body.username, req.body.password)) {
     res.status(200).cookie("token", token).json(database[req.body.username].twitterData)
     storeToken(req.body.username, token)
+    console.log(database)
   } else {
     res.status(401).send("Unsuccessful login, please make sure you correctly typed your username/password!")
   }

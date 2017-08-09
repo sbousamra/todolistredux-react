@@ -6,7 +6,6 @@
     "assets-webpack-plugin": "^3.5.1",
     "axios": "^0.16.1",
     "body-parser": "^1.17.2",
-    "browser-history": "^1.0.1",
     "classnames": "^2.2.5",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.2",

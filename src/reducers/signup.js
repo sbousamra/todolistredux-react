@@ -3,8 +3,8 @@ import lodash from 'lodash';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case "LOGIN":
-      return lodash.extend({}, state, {twitterData: action.twitterData, loggedIn: true})
+    case "SIGNUP":
+      return lodash.extend({}, state, {signedUp: true})
     default:
       return state
   }

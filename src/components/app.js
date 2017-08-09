@@ -1,10 +1,9 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import axios from 'axios';
-import * as lodash from 'lodash';
+import lodash from 'lodash';
 import Home from '../containers/home';
-import Signup from './signup'
+import Signup from '../containers/signup'
 
 class App extends React.Component {
 
@@ -13,12 +12,19 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return(
-      <Router history={createBrowserHistory()}>
-        <Switch>
-          <Route exact path="/" component={(props) => <Home/>}/>
-          <Route path="/signup" component={(props) => <Signup/>}/>
-        </Switch>
+      <Router>
+        <div>
+          <Route exact path="/" component={() => <Home/>}/>
+          <Route path="/signup" component={() => (
+            this.props.signedUp ? (
+              <Redirect to="/"/>
+            ) : (
+              <Signup/>
+            )
+          )}/>
+        </div>
       </Router>
     )
   }

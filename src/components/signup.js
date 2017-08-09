@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import * as lodash from 'lodash';
+import lodash from 'lodash';
 import styles from '../../public/css/styles.css';
 import TitleBar from '../containers/titleBar.js';
 
@@ -32,7 +32,9 @@ class Signup extends React.Component {
 
   signupApiRequest(username, password) {
     const newUser = {username: username, password: password}
-    axios.post('/signup', newUser).then().catch((error) => {console.log(error)})  
+    axios.post('/signup', newUser).then(() => {
+      this.props.dispatchSignup()
+    }).catch((error) => {console.log(error)})  
   }
 
   render() {
