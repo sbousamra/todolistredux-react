@@ -6,7 +6,12 @@ export default (state = {}, action) => {
   switch (action.type) {
     case "SIGNUP":
       if (action.username && action.password != "") {
-        return lodash.extend({}, state, {[action.username]: {password: action.password}})
+        const newUser = {username: action.username, password: action.password}
+        return (
+          axios.post('/signup', newUser).then(state).catch((error) => {
+            console.log("Error")
+          })
+        )
       } else {
         return state
       }

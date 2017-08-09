@@ -5,11 +5,14 @@ import * as lodash from 'lodash';
 export default (state = {}, action) => {
   switch (action.type) {
     case "LOGIN":
-      if (action.username && action.password != "") {
-        return lodash.extend({}, state, {[action.username]: {password: action.password}})
-      } else {
-        return state
-      }
+      const userAndPass = {username: action.username, password: action.password}
+      return (
+        axios.post('/login', userAndPass).then((res) => {
+          lodash.extend({}, state, {twitterData: res.data, loggedIn: true})
+        }).catch((error) => {
+          console.log(error)
+        })
+      )
     default:
       return state
   }

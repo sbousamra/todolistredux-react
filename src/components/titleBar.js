@@ -9,31 +9,19 @@ class TitleBar extends React.Component {
       username: "",
       password: ""
     }
-    this.handleUserInput = this.handleUserInput.bind(this)
-    this.handlePasswordInput = this.handlePasswordInput.bind(this)
+    this.trackUsername = this.trackUsername.bind(this)
+    this.trackPassword = this.trackPassword.bind(this)
     this.handleSignup = this.handleSignup.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
-  } 
-
-  userSignup() {
-    const newUser = {
-      username: this.state.username,
-      password: this.state.password
-    }
-    this.props.userSignup(newUser)
-    this.setState({
-      username: "",
-      password: ""
-    })
   }
 
-  handleUserInput(e) {
+  trackUsername(e) {
     this.setState({
       username: e.target.value
     })
   }
 
-  handlePasswordInput(e) {
+  trackPassword(e) {
     this.setState({
       password: e.target.value
     })
@@ -42,7 +30,7 @@ class TitleBar extends React.Component {
   handleSignup() {
     return (
       <a className="nav-link" href="/signup">
-        <button type="button" className="btn btn-lg btn-info" onClick={this.userSignup}>Sign Up</button>
+        <button type="button" className="btn btn-lg btn-info">Sign Up</button>
       </a>
     )
   }
@@ -59,10 +47,14 @@ class TitleBar extends React.Component {
         <div className="col-4">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <form className="form-inline my-2 my-lg-0">
-              <input className="form-control mr-sm-2" type="text" placeholder="Username"/>
-              <input className="form-control mr-sm-2" type="password" placeholder="Password"/>
+              <input className="form-control mr-sm-2" type="text" placeholder="Username" onChange={this.trackUsername}/>
+              <input className="form-control mr-sm-2" type="password" placeholder="Password" onChange={this.trackPassword}/>
             </form>
-            <a className="nav-link" href="#"><button className="btn btn-lg btn-info">Login</button></a>
+            <a className="nav-link" href="#">
+              <button className="btn btn-lg btn-info" onClick={() => this.props.dispatchLogin(this.state.username, this.state.password)}>
+                Login
+              </button>
+            </a>
           </div>
         </div>
       )
@@ -105,7 +97,6 @@ class TitleBar extends React.Component {
             <div className="col-4">
               <ul className="navbar-nav">
                 <a className="nav-link col-4"></a>
-                <a className="nav-link" href="#"><button className="btn btn-lg btn-info">+</button></a>
                 {this.handleSignup()}
                 {this.handleLogout()}
               </ul>

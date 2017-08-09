@@ -1,18 +1,23 @@
 import React from 'react';
 import * as lodash from 'lodash';
-import TitleBar from './titleBar';
+import TitleBar from '../containers/titleBar';
 import styles from '../../public/css/styles.css';
 
-class HomePage extends React.Component {
+class Home extends React.Component {
 
   constructor() {
     super();
-    this.state = {
-      loggedIn: true
-    }
   }
 
   render() {
+
+    const trends = 
+        <div className="card signedInTrends">
+          <div className="card-block">
+            <h4 className="card-title text-center">Trends</h4>
+            <p className="text-center"> Daily trend... </p>
+          </div>
+        </div>
 
     const userCard = 
       <div className="col-3 signedInUserCard">
@@ -33,6 +38,7 @@ class HomePage extends React.Component {
             </ul>
           </div>
         </div>
+        {trends}
       </div>
 
     const tweets = 
@@ -65,33 +71,33 @@ class HomePage extends React.Component {
         </div>
       </div>
 
-    if (this.state.loggedIn === false) {
+    if (this.props.loggedIn) {
       return(
-        <div>
-         <TitleBar loggedIn={this.state.loggedIn}/>
-          <div className="container-fluid twitterHomePageBackground">
+        <div className="signedInBackground">
+         <TitleBar/>
+           <div className="container-fluid">
+            <div className="row">
+              <div className="col-1">
+              </div>
+               {userCard}
+               {tweets}
+               {whoToFollow}
+              <div className="col-1">
+              </div>
+            </div>
           </div>
         </div>
       )
     } else {
       return(
-        <div className="signedInBackground">
-         <TitleBar loggedIn={this.state.loggedIn}/>
-         <div className="container-fluid">
-           <div className="row">
-            <div className="col-1">
-            </div>
-             {userCard}
-             {tweets}
-             {whoToFollow}
-            <div className="col-1">
-            </div>
-           </div>
-        </div>
+        <div>
+         <TitleBar/>
+          <div className="container-fluid twitterHomePageBackground">
+          </div>
         </div>
       )
     }
   }
 }
 
-export default HomePage;
+export default Home;
