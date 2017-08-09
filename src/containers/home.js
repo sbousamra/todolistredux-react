@@ -5,7 +5,8 @@ import Home from '../components/home.js';
 
 function mapStateToProps(state) {
   return({
-    loggedIn: state.login.loggedIn
+    loggedIn: state.login.loggedIn,
+    username: state.login.username
   })
 }
 

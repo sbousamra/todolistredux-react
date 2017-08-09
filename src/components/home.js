@@ -23,7 +23,7 @@ class Home extends React.Component {
         <div className="card">
           <img className="card-img-top" src="https://steamuserimages-a.akamaihd.net/ugc/287476444271080327/40DC4BC571CBAB9CDC651920F35A0CE135393934/"/>
           <div className="card-block">
-            <h4 className="card-title text-center">Bass</h4>
+            <h4 className="card-title text-center">{this.props.username}</h4>
             <ul className="nav justify-content-center">
               <li className="nav-item">
                 <a className="nav-link active" href="#">Tweets</a>
@@ -44,7 +44,7 @@ class Home extends React.Component {
       <div className="col-4 signedInUserTweets">
         <div className="card">
           <div className="card-block">
-            <h4 className="card-title">Bass</h4>
+            <h4 className="card-title">{this.props.username}</h4>
             <p className="card-text">This is where the tweet content will go.</p>
             <ul className="nav justify-content-center">
               <li className="nav-item">

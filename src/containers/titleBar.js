@@ -16,7 +16,7 @@ function mapDispatchToProps(dispatch) {
     dispatchLogin: (username, password) => {
       const newUser = {username: username, password: password}
       axios.post('/login', newUser).then((res) => {
-        dispatch(loginAction(res.data))
+        dispatch(loginAction(res.data, username))
       }).catch((error) => {
         console.log("Bad username and/or password")
       }) 

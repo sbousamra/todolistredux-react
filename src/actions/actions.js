@@ -2,9 +2,10 @@ export const signupAction = {
   type: "SIGNUP"
 }
 
-export const loginAction = (twitterData) => (
+export const loginAction = (twitterData, username) => (
   {
     type: "LOGIN",
+    username: username,
     twitterData: twitterData
   }
 )
