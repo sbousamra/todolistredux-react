@@ -59,10 +59,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html')); 
 });
 
-app.get('/signup', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html')); 
-})
-
 app.get('/timeline', authenticate, (req, res) => {
   return res.status(200).json(twitterData)
 })
