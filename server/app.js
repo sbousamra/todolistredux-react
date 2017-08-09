@@ -83,7 +83,7 @@ app.delete('/delete', (req, res) => {
 })
 
 app.get('/timeline', authenticate, (req, res) => {
-  return res.status(200).json(twitterData)
+  res.status(200).json(twitterData)
 })
 
 app.get('/*', (req, res) => {

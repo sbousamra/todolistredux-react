@@ -11,8 +11,15 @@ class App extends React.Component {
     super();
   }
 
+  componentDidMount() {
+    axios.get('/timeline').then((res) => {
+      this.props.getData(res.data)
+    }).catch((error) => {
+      console.log(error)
+    })  
+  }
+
   render() {
-    console.log(this.props)
     return(
       <Router>
         <div>
