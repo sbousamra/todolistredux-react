@@ -55,14 +55,6 @@ function deleteTweet(tweets, tweetId) {
   lodash.set(tweets, updatedTweets)
 }
 
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html')); 
-});
-
-app.get('/timeline', authenticate, (req, res) => {
-  return res.status(200).json(twitterData)
-})
-
 app.post('/signup', (req, res) => {
   if (database.hasOwnProperty(req.body.username)) {
     res.status(409).send("That username already exists!")
@@ -89,6 +81,15 @@ app.post('/tweet/:id', (req, res) => {
 app.delete('/delete', (req, res) => {
   res.status(200).send("You've deleted")
 })
+
+app.get('/timeline', authenticate, (req, res) => {
+  return res.status(200).json(twitterData)
+})
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html')); 
+});
+
 
 var PORT = process.env.PORT || 9000;
 
