@@ -33,7 +33,7 @@ class TitleBar extends React.Component {
     axios.post('/login', newUser).then((res) => {
       this.props.dispatchLogin(res.data)
     }).catch((error) => {
-      console.log(error)
+      console.log("Bad username and/or password")
     })  
   }
 
