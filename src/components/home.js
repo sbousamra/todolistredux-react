@@ -8,8 +8,11 @@ class Home extends React.Component {
     super();
   }
 
-  render() {
+  componentDidMount() {
+    this.props.getData()
+  }
 
+  render() {
     const trends = 
         <div className="card signedInTrends">
           <div className="card-block">
