@@ -93,7 +93,7 @@ class TitleBar extends React.Component {
 
 function mapStateToProps(state) {
   return({
-    loggedIn: state.login.loggedIn
+    loggedIn: state.account.loggedIn
   })
 }
 

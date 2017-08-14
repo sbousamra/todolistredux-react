@@ -104,8 +104,8 @@ class Home extends React.Component {
 
 function mapStateToProps(state) {
   return({
-    loggedIn: state.login.loggedIn,
-    username: state.login.username
+    loggedIn: state.account.loggedIn,
+    username: state.account.username
   })
 }
 

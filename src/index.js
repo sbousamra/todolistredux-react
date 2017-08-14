@@ -1,18 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {applyMiddleware, createStore} from 'redux';
-import logger from 'redux-logger';
 import {Provider} from 'react-redux';
 import {browserHistory} from 'react-router';
 import {BrowserRouter, Route} from 'react-router-dom';
-import {syncHistoryWithStore, routerMiddleware, push} from 'react-router-redux';
-import rootReducer from './reducers/rootReducer';
+import {syncHistoryWithStore} from 'react-router-redux';
+import configureStore from './store/configureStore';
 import Home from './containers/home';
 import Signup from './containers/signup';
 import Authentication from './containers/authentication';
 
-const middleware = applyMiddleware(logger, routerMiddleware(browserHistory))
-const store = createStore(rootReducer, middleware)
+const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(

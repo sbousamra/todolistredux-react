@@ -12,9 +12,7 @@ export default function(Component) {
 
     render() {
       return (
-        <div>
-          <Component {...this.props}/>
-        </div>
+        <Component {...this.props}/>
       )
     }
   }
