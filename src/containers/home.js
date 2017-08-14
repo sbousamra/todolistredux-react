@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as lodash from 'lodash';
+import lodash from 'lodash';
 import axios from 'axios';
 import {loginAction} from '../actions/actions';
 import TitleBar from '../containers/titleBar';
@@ -10,10 +10,6 @@ class Home extends React.Component {
 
   constructor() {
     super();
-  }
-
-  componentDidMount() {
-    this.props.getData()
   }
 
   render() {
@@ -113,17 +109,5 @@ function mapStateToProps(state) {
   })
 }
 
-function mapDispatchToProps(dispatch) {
-  return ({
-    getData: () => {
-      axios.get('/timeline').then((res) => {
-        dispatch(loginAction(res.data))
-      }).catch((error) => {
-        console.log(error)
-      })
-    }
-  })
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps)(Home)
 
