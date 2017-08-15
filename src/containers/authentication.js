@@ -7,7 +7,7 @@ export default function(Component) {
   class Authentication extends React.Component {
 
     componentDidMount() {
-      this.props.getData()
+      this.props.checkAuth()
     }
 
     render() {
@@ -19,7 +19,7 @@ export default function(Component) {
 
   function mapDispatchToProps(dispatch) {
     return ({
-      getData: () => {
+      checkAuth: () => {
         axios.get('/timeline').then((res) => {
           console.log(res.data)
           dispatch(loginAction(res.data.twitterData, res.data.username))
