@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
@@ -40,10 +39,7 @@ module.exports = {
         'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js',
       ],
       append: true
-    }),
-    new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify('production')
-  })
+    })
   ],
   devServer: {
     historyApiFallback: true

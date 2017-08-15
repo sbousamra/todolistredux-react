@@ -1,5 +1,5 @@
 {
-  "name": "todolistredux-react",
+  "name": "twitteredux-react",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -39,6 +39,8 @@
   "scripts": {
     "dev": "webpack-dev-server",
     "start": "node server/app.js",
-    "build": "webpack"
+    "build": "webpack",
+    "build:dev": "webpack --env=dev --progress --profile --colors",
+    "build:prod": "webpack --env=prod --progress --profile --colors"
   }
 }

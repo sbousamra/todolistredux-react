@@ -21,7 +21,8 @@ export default function(Component) {
     return ({
       getData: () => {
         axios.get('/timeline').then((res) => {
-          dispatch(loginAction(res.data))
+          console.log(res.data)
+          dispatch(loginAction(res.data.twitterData, res.data.username))
         }).catch((error) => {
           console.log(error)
         })

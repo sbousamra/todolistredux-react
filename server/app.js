@@ -38,6 +38,7 @@ function storeToken(username, token) {
 
 function authenticate(req, res, next) {
   if (!lodash.isEmpty(database.tokens) && database.tokens.hasOwnProperty(req.cookies.token)) {
+    username = database.tokens[req.cookies.token]
     twitterData = database[database.tokens[req.cookies.token]].twitterData
     return next()
   } else {
@@ -87,7 +88,7 @@ app.get('/logout', (req,res) => {
 })
 
 app.get('/timeline', authenticate, (req, res) => {
-  res.status(200).json(twitterData)
+  res.status(200).json({username, twitterData})
 })
 
 app.get('/*', (req, res) => {
