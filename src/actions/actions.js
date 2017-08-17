@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import {push} from 'react-router-redux';
 
 export const signupAction = {
   type: "SIGNUP"
