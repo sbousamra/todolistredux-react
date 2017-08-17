@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {loginAction} from '../actions/actions';
+import * as actions from '../actions/actions';
+import PropTypes from 'prop-types';
 
 export default function(Component) {
   class Authentication extends React.Component {
@@ -21,13 +22,16 @@ export default function(Component) {
     return ({
       checkAuth: () => {
         axios.get('/timeline').then((res) => {
-          console.log(res.data)
-          dispatch(loginAction(res.data.twitterData, res.data.username))
+          dispatch(actions.loginAction(res.data.twitterData, res.data.username))
         }).catch((error) => {
           console.log(error)
         })
       }
     })
+  }
+
+  Authentication.propTypes = {
+    checkAuth: PropTypes.func
   }
 
   return connect(null, mapDispatchToProps)(Authentication)

@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import lodash from 'lodash';
 import axios from 'axios';
-import {loginAction, logoutAction} from '../actions/actions.js';
+import * as actions from '../actions/actions.js';
 import PropTypes from 'prop-types';
 
 class TitleBar extends React.Component {
@@ -103,14 +102,14 @@ function mapDispatchToProps(dispatch) {
     dispatchLogin: (username, password) => {
       const newUser = {username: username, password: password}
       axios.post('/login', newUser).then((res) => {
-        dispatch(loginAction(res.data, username))
+        dispatch(actions.loginAction(res.data, username))
       }).catch((error) => {
-        console.log("Bad username and/or password")
+        console.log(error)
       }) 
     },
     dispatchLogout: () => {
       axios.get('/logout').then(() => {
-        dispatch(logoutAction)
+        dispatch(actions.logoutAction)
       }).catch((error) => {
         console.log(error)
       })

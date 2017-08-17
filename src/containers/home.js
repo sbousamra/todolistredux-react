@@ -1,10 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import lodash from 'lodash';
-import axios from 'axios';
-import {loginAction} from '../actions/actions';
 import TitleBar from '../containers/titleBar';
-import styles from '../../public/css/styles.css';
 import PropTypes from 'prop-types';
 
 class Home extends React.Component {

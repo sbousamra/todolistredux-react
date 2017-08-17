@@ -1,9 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import lodash from 'lodash';
 import axios from 'axios';
-import {dispatchSignup} from '../actions/actions.js';
-import styles from '../../public/css/styles.css';
+import * as actions from '../actions/actions.js';
 import TitleBar from '../containers/titleBar.js';
 import PropTypes from 'prop-types';
 
@@ -58,7 +56,7 @@ class Signup extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return ({
-    dispatchSignup: (username, password) => dispatch(dispatchSignup(username, password))
+    dispatchSignup: (username, password) => dispatch(actions.dispatchSignup(username, password))
   })
 }
 
