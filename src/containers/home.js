@@ -5,6 +5,7 @@ import axios from 'axios';
 import {loginAction} from '../actions/actions';
 import TitleBar from '../containers/titleBar';
 import styles from '../../public/css/styles.css';
+import PropTypes from 'prop-types';
 
 class Home extends React.Component {
 
@@ -107,6 +108,11 @@ function mapStateToProps(state) {
     loggedIn: state.account.loggedIn,
     username: state.account.username
   })
+}
+
+Home.propTypes = {
+  username: PropTypes.string,
+  loggedIn: PropTypes.bool
 }
 
 export default connect(mapStateToProps)(Home)

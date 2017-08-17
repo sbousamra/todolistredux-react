@@ -69,7 +69,6 @@ app.post('/login', (req, res) => {
   if (verifyUser(req.body.username, req.body.password)) {
     res.status(200).cookie("token", token).json(database[req.body.username].twitterData)
     storeToken(req.body.username, token)
-    console.log(database)
   } else {
     res.status(401).send("Unsuccessful login, please make sure you correctly typed your username/password!")
   }

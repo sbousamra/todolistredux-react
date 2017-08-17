@@ -2,9 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import lodash from 'lodash';
 import axios from 'axios';
-import {signupAction} from '../actions/actions.js';
+import {dispatchSignup} from '../actions/actions.js';
 import styles from '../../public/css/styles.css';
 import TitleBar from '../containers/titleBar.js';
+import PropTypes from 'prop-types';
 
 class Signup extends React.Component {
 
@@ -57,14 +58,12 @@ class Signup extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return ({
-    dispatchSignup: (username, password) => {
-      const newUser = {username: username, password: password}
-      axios.post('/signup', newUser).then(() => {
-        dispatch(signupAction)
-        dispatch(push("/"))
-      }).catch((error) => {console.log(error)})  
-    }
+    dispatchSignup: (username, password) => dispatch(dispatchSignup(username, password))
   })
+}
+
+Signup.propTypes = {
+  dispatchSignup: PropTypes.func
 }
 
 export default connect(null, mapDispatchToProps)(Signup)

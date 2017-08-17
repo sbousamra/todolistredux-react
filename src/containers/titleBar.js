@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import lodash from 'lodash';
 import axios from 'axios';
 import {loginAction, logoutAction} from '../actions/actions.js';
+import PropTypes from 'prop-types';
 
 class TitleBar extends React.Component {
 
@@ -115,6 +116,12 @@ function mapDispatchToProps(dispatch) {
       })
     }
   })
+}
+
+TitleBar.propTypes = {
+  loggedIn: PropTypes.bool,
+  dispatchLogin: PropTypes.func,
+  dispatchLogout: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TitleBar)
