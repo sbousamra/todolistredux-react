@@ -2,34 +2,40 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const lodash = require('lodash');
-
+const uuidv1 = require('uuid/v1');
 const app = express();
+const {Pool, Client} = require('pg');
+
 app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 app.use(bodyParser.json())
 
-var database = {tokens: {}}
-
-function randId() {
-  return Math.random().toString(36).substr(2, 10);
-}
+const pool = new Pool({
+  user: 'bass',
+  host: 'localhost',
+  database: 'twitterclone',
+  password: '',
+  port: 5432,
+})
 
 function addUser(username, password) {
-  lodash.extend(database, {
-    [username]: {
-      password: password,
-      twitterData: {
-        tweets: {},
-        following: {},
-        followers: {}
-      }
-    }
+  pool.query("INSERT INTO users (id, username, password) VALUES($1, $2, $3)", [uuidv1(), username, password], (err, res) => {
+    console.log(err, res)
   })
 }
 
 function verifyUser(username, password) {
-  return (!lodash.isEmpty(database) && database.hasOwnProperty(username) && database[username].password === password)
+  return (
+    pool.query("SELECT COUNT(username) FROM users", (err, res) => {
+      console.log(err, res)
+    }) !== 0 && 
+    pool.query("SELECT username FROM users WHERE EXISTS", [username], (err, res) => {
+      console.log(err, res)
+    }) &&
+    pool.query("SELECT username FROM users WHERE EXISTS", [password], (err, res) => {
+      console.log(err, res)
+    })
+  )
 }
 
 function storeToken(username, token) {
@@ -56,7 +62,9 @@ function deleteTweet(tweets, tweetId) {
 }
 
 app.post('/signup', (req, res) => {
-  if (database.hasOwnProperty(req.body.username)) {
+  if (pool.query("SELECT COUNT(username) FROM users WHERE username = $1", [req.body.username], (err, res) => {
+    console.log(err, res)
+  }) > 0) {
     res.status(409).send("That username already exists!")
   } else {
     addUser(req.body.username, req.body.password)
