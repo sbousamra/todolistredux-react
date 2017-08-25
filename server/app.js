@@ -18,20 +18,18 @@ const pool = new Pool({
   port: 5432,
 })
 
+function randId() {
+  return Math.random().toString(36).substr(2, 10);
+}
+
 function addUser(username, password) {
   return pool.query("INSERT INTO users (id, username, password) VALUES($1, $2, $3)", [uuidv1(), username, password])
 }
 
 function verifyUser(username, password) {
-  return (
-    pool.query("SELECT COUNT(username) FROM users", (err, res) => {
-      console.log(err, res)
-    }) !== 0 && 
-    pool.query("SELECT username FROM users WHERE EXISTS", [username], (err, res) => {
-      console.log(err, res)
-    }) &&
-    pool.query("SELECT username FROM users WHERE EXISTS", [password], (err, res) => {
-      console.log(err, res)
+  return (pool.query("SELECT * FROM users WHERE username = $1 AND password = $2", [username, password])
+    .then((rows) => {
+      return rows[0] !== null
     })
   )
 }
@@ -78,12 +76,14 @@ app.post('/signup', (req, res) => {
 
 app.post('/login', (req, res) => {
   var token = randId()
-  if (verifyUser(req.body.username, req.body.password)) {
-    res.status(200).cookie("token", token).json(database[req.body.username].twitterData)
-    storeToken(req.body.username, token)
-  } else {
-    res.status(401).send("Unsuccessful login, please make sure you correctly typed your username/password!")
-  }
+  verifyUser(req.body.username, req.body.password).then((verified) => {
+    if (verified) {
+      res.status(200).cookie("token", token).send("Sucess")
+      // storeToken(req.body.username, token)
+    } else {
+      res.status(401).send("Unsuccessful login, please make sure you correctly typed your username/password!")
+    }
+  })
 })
 
 app.post('/tweet/:id', (req, res) => {
