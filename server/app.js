@@ -18,24 +18,23 @@ const pool = new Pool({
   port: 5432,
 })
 
-function randId() {
-  return Math.random().toString(36).substr(2, 10);
-}
-
 function addUser(username, password) {
   return pool.query("INSERT INTO users (id, username, password) VALUES($1, $2, $3)", [uuidv1(), username, password])
 }
 
 function verifyUser(username, password) {
-  return (pool.query("SELECT * FROM users WHERE username = $1 AND password = $2", [username, password])
-    .then((rows) => {
-      return rows[0] !== null
+  return (pool.query("SELECT COUNT(username) FROM users WHERE username = $1 AND password = $2", [username, password])
+    .then((res) => {
+      return res.rows[0].count > 0
     })
   )
 }
 
 function storeToken(username, token) {
-  lodash.extend(database.tokens, {[token]: username})
+  pool.query("SELECT id FROM users WHERE username = $1", [username])
+  .then((res) => {
+    return pool.query("INSERT INTO tokens (id, user_id) VALUES($1, $2)", [uuidv1(), res.rows[0].id])
+  })
 }
 
 function authenticate(req, res, next) {
@@ -59,7 +58,9 @@ function deleteTweet(tweets, tweetId) {
 
 function doesUserExist(username) {
   return (pool.query("SELECT COUNT(username) FROM users WHERE username = $1", [username])
-    .then((res) => res > 0)
+    .then((res) => {
+      return res.rows[0].count > 0
+    })
   )
 }
 
@@ -75,11 +76,11 @@ app.post('/signup', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-  var token = randId()
+  var token = uuidv1()
   verifyUser(req.body.username, req.body.password).then((verified) => {
     if (verified) {
-      res.status(200).cookie("token", token).send("Sucess")
-      // storeToken(req.body.username, token)
+      res.status(200).cookie("token", token).send("Success")
+      storeToken(req.body.username, token)
     } else {
       res.status(401).send("Unsuccessful login, please make sure you correctly typed your username/password!")
     }
