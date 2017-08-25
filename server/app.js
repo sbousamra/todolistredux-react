@@ -19,9 +19,7 @@ const pool = new Pool({
 })
 
 function addUser(username, password) {
-  pool.query("INSERT INTO users (id, username, password) VALUES($1, $2, $3)", [uuidv1(), username, password], (err, res) => {
-    console.log(err, res)
-  })
+  return pool.query("INSERT INTO users (id, username, password) VALUES($1, $2, $3)", [uuidv1(), username, password])
 }
 
 function verifyUser(username, password) {
@@ -61,15 +59,21 @@ function deleteTweet(tweets, tweetId) {
   lodash.set(tweets, updatedTweets)
 }
 
+function doesUserExist(username) {
+  return (pool.query("SELECT COUNT(username) FROM users WHERE username = $1", [username])
+    .then((res) => res > 0)
+  )
+}
+
 app.post('/signup', (req, res) => {
-  if (pool.query("SELECT COUNT(username) FROM users WHERE username = $1", [req.body.username], (err, res) => {
-    console.log(err, res)
-  }) > 0) {
-    res.status(409).send("That username already exists!")
-  } else {
-    addUser(req.body.username, req.body.password)
-    res.status(200).send("Welcome to Bass's Twitter!")
-  }
+  doesUserExist(req.body.username).then((exists) => {
+    if (exists) {
+      res.status(409).send("That username already exists!")
+    } else {
+      addUser(req.body.username, req.body.password)
+        .then(() => res.send("Welcome" + req.body.username))
+    }}
+  )
 })
 
 app.post('/login', (req, res) => {
