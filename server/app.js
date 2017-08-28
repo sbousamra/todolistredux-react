@@ -60,8 +60,7 @@ function authenticate(req, res, next) {
   verifyToken(req.cookies.token).then((exists) => {
     if (exists) {
       return getUserWithToken(req.cookies.token).then((user) => {
-        req.username = user.username
-        req.id = user.id
+        req.user = user
         return next()
       })
     } else {
@@ -123,7 +122,7 @@ app.get('/logout', (req,res) => {
 })
 
 app.get('/timeline', authenticate, (req, res) => {
-  res.status(200).json({username: req.username, id: req.id})
+  res.status(200).json({username: req.user.username, id: req.user.id})
 })
 
 app.get('/*', (req, res) => {
