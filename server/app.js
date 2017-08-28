@@ -31,7 +31,7 @@ function verifyUser(username, password) {
 }
 
 function getUsernameWithToken(token) {
-  return (pool.query("SELECT user_id FROM tokens WHERE id = $1", token)
+  return (pool.query("SELECT user_id FROM tokens WHERE id = $1", [token])
     .then((res) => {
       return pool.query("SELECT username FROM users WHERE id = $1", [res.rows[0].user_id])
     })
@@ -47,15 +47,17 @@ function storeToken(username, token) {
 }
 
 function verifyToken(token) {
-  return (pool.query("SELECT COUNT(id) FROM tokens WHERE id = $1", token)
+  return (pool.query("SELECT COUNT(id) FROM tokens WHERE id = $1", [token])
     .then((res) => {
       return res.rows[0].count > 0
-  })
+    })
+  )
 }
 
 function authenticate(req, res, next) {
   verifyToken(req.cookies.token).then((exists) => {
     if (exists) {
+      username = getUsernameWithToken(req.cookies.token)
       return next()
     } else {
       return res.status(401).send("Make an account or log in!")
@@ -116,7 +118,7 @@ app.get('/logout', (req,res) => {
 })
 
 app.get('/timeline', authenticate, (req, res) => {
-  res.status(200).json({username, twitterData})
+  res.status(200).json(username)
 })
 
 app.get('/*', (req, res) => {
