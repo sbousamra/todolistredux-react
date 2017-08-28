@@ -30,33 +30,41 @@ function verifyUser(username, password) {
   )
 }
 
+function getUsernameWithToken(token) {
+  return (pool.query("SELECT user_id FROM tokens WHERE id = $1", token)
+    .then((user_id) => {
+      pool.query("SELECT username FROM users WHERE id = $1", [user_id])
+    })
+    .then((username) => {
+      return username
+    })
+  )
+}
+
 function storeToken(username, token) {
-  pool.query("SELECT id FROM users WHERE username = $1", [username])
-  .then((res) => {
-    return pool.query("INSERT INTO tokens (id, user_id) VALUES($1, $2)", [uuidv1(), res.rows[0].id])
+  return (pool.query("SELECT id FROM users WHERE username = $1", [username])
+    .then((res) => {
+      return pool.query("INSERT INTO tokens (id, user_id) VALUES($1, $2)", [token, res.rows[0].id])
+    })
+  )
+}
+
+function verifyToken(token) {
+  return (pool.query("SELECT COUNT(id) FROM tokens WHERE id = $1", token)
+    .then((res) => {
+      return res.rows[0].count > 0
   })
 }
 
 function authenticate(req, res, next) {
-  return (pool.query("SELECT COUNT(id) FROM tokens WHERE id = $1", [req.cookies.token])
-    .then((token) => {
-      if (token.rows[0].count > 0) {
-        pool.query("SELECT user_id FROM tokens WHERE id = $1", [req.cookies.token])
-          .then((user_id) => {
-            pool.query("SELECT username FROM users WHERE id = $1", [user_id])
-              .then((username) => {
-                pool.query("SELECT * FROM tweets, following, followers;")
-                  .then((res) => {
-                    return res
-                  })
-              })
-          }) 
-        return next()
-      } else {
-        return res.status(401).send("Make an account or log in!")
-      }
-    })
-  )
+  verifyToken(req.cookies.token).then((exists) => {
+    if (exists) {
+      username = Promise.resolve()
+      return next()
+    } else {
+      return res.status(401).send("Make an account or log in!")
+    }
+  })
 }
 
 function saveTweet(tweets, tweet) {
