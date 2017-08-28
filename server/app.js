@@ -32,11 +32,8 @@ function verifyUser(username, password) {
 
 function getUsernameWithToken(token) {
   return (pool.query("SELECT user_id FROM tokens WHERE id = $1", token)
-    .then((user_id) => {
-      pool.query("SELECT username FROM users WHERE id = $1", [user_id])
-    })
-    .then((username) => {
-      return username
+    .then((res) => {
+      return pool.query("SELECT username FROM users WHERE id = $1", [res.rows[0].user_id])
     })
   )
 }
@@ -59,7 +56,6 @@ function verifyToken(token) {
 function authenticate(req, res, next) {
   verifyToken(req.cookies.token).then((exists) => {
     if (exists) {
-      username = Promise.resolve()
       return next()
     } else {
       return res.status(401).send("Make an account or log in!")
