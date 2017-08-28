@@ -57,8 +57,10 @@ function verifyToken(token) {
 function authenticate(req, res, next) {
   verifyToken(req.cookies.token).then((exists) => {
     if (exists) {
-      username = getUsernameWithToken(req.cookies.token)
-      return next()
+      return getUsernameWithToken(req.cookies.token).then((res) => {
+        req.username = res.rows[0].username
+        return next()
+      })
     } else {
       return res.status(401).send("Make an account or log in!")
     }
@@ -118,7 +120,8 @@ app.get('/logout', (req,res) => {
 })
 
 app.get('/timeline', authenticate, (req, res) => {
-  res.status(200).json(username)
+  console.log(req.username)
+  res.status(200).json({username: req.username})
 })
 
 app.get('/*', (req, res) => {
