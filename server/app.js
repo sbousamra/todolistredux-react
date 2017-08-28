@@ -34,6 +34,8 @@ function getUsernameWithToken(token) {
   return (pool.query("SELECT user_id FROM tokens WHERE id = $1", [token])
     .then((res) => {
       return pool.query("SELECT username FROM users WHERE id = $1", [res.rows[0].user_id])
+    }).then((res) => {
+      return res.rows[0].username
     })
   )
 }
@@ -58,7 +60,7 @@ function authenticate(req, res, next) {
   verifyToken(req.cookies.token).then((exists) => {
     if (exists) {
       return getUsernameWithToken(req.cookies.token).then((res) => {
-        req.username = res.rows[0].username
+        req.username = res
         return next()
       })
     } else {
@@ -120,7 +122,6 @@ app.get('/logout', (req,res) => {
 })
 
 app.get('/timeline', authenticate, (req, res) => {
-  console.log(req.username)
   res.status(200).json({username: req.username})
 })
 
