@@ -5,17 +5,25 @@ export const signupAction = {
   type: "SIGNUP"
 }
 
-export const loginAction = (twitterData, username) => (
+export const loginAction = (username) => (
   {
     type: "LOGIN",
-    username: username,
-    twitterData: twitterData
+    username: username
   }
 )
 
 export const logoutAction = {
   type: "LOGOUT"
 }
+
+export const authenticateAction = (username, id, twitterData) => (
+  {
+    type: "AUTHENTICATE",
+    username: username,
+    id: id,
+    twitterData: twitterData
+  }
+)
 
 export function dispatchSignup(username, password) {
   return function(dispatch) {

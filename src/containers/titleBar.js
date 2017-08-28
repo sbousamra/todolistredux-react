@@ -102,7 +102,7 @@ function mapDispatchToProps(dispatch) {
     dispatchLogin: (username, password) => {
       const newUser = {username: username, password: password}
       axios.post('/login', newUser).then((res) => {
-        dispatch(actions.loginAction(res.data, username))
+        dispatch(actions.loginAction(username))
       }).catch((error) => {
         console.log(error)
       }) 

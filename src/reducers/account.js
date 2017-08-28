@@ -6,9 +6,11 @@ function account(state = {}, action) {
     case "SIGNUP":
       return lodash.extend({}, state, {signedUp: true})
     case "LOGIN":
-      return lodash.extend({}, state, {twitterData: action.twitterData, loggedIn: true, username: action.username})
+      return lodash.extend({}, state, {loggedIn: true, username: action.username})
     case "LOGOUT":
-      return lodash.extend({}, state, {loggedIn: false})      
+      return lodash.extend({}, state, {loggedIn: false})
+    case "AUTHENTICATE":
+      return lodash.extend({}, state, {loggedIn: true, username: action.username, id: action.id, twitterData: action.twitterData})      
     default:
       return state
   }

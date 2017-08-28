@@ -30,12 +30,12 @@ function verifyUser(username, password) {
   )
 }
 
-function getUsernameWithToken(token) {
+function getUserWithToken(token) {
   return (pool.query("SELECT user_id FROM tokens WHERE id = $1", [token])
     .then((res) => {
-      return pool.query("SELECT username FROM users WHERE id = $1", [res.rows[0].user_id])
+      return pool.query("SELECT username, id FROM users WHERE id = $1", [res.rows[0].user_id])
     }).then((res) => {
-      return res.rows[0].username
+      return res.rows[0]
     })
   )
 }
@@ -59,8 +59,9 @@ function verifyToken(token) {
 function authenticate(req, res, next) {
   verifyToken(req.cookies.token).then((exists) => {
     if (exists) {
-      return getUsernameWithToken(req.cookies.token).then((res) => {
-        req.username = res
+      return getUserWithToken(req.cookies.token).then((user) => {
+        req.username = user.username
+        req.id = user.id
         return next()
       })
     } else {
@@ -122,7 +123,7 @@ app.get('/logout', (req,res) => {
 })
 
 app.get('/timeline', authenticate, (req, res) => {
-  res.status(200).json({username: req.username})
+  res.status(200).json({username: req.username, id: req.id})
 })
 
 app.get('/*', (req, res) => {
