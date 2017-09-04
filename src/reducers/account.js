@@ -16,4 +16,4 @@ function account(state = {}, action) {
   }
 }
 
-export default account
+export default account;
