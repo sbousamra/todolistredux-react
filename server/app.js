@@ -1,4 +1,5 @@
 const express = require('express');
+const lodash = require('lodash');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -61,9 +62,19 @@ function authenticate(req, res, next) {
   })
 }
 
+function getUserTweets(username) {
+  return pool.query("SELECT id FROM users WHERE username = $1", [username]).then((res) => {
+    return pool.query("SELECT * FROM tweets WHERE user_id = $1", [res.rows[0].id])
+  }).then((res) => {
+    return lodash.map(res.rows, (row) => {
+      return row.body
+    })
+  })
+}
+
 function saveTweet(username, tweet) {
   return pool.query("SELECT id FROM users WHERE username = $1", [username]).then((res) => {
-    return pool.query("INSERT INTO tweets (id, user_id, body) VALUES($1, $2, $3)", [uuidv1(), res.rows[0], tweet])
+    return pool.query("INSERT INTO tweets (id, user_id, body) VALUES($1, $2, $3)", [uuidv1(), res.rows[0].id, tweet])
   })
 }
 
@@ -83,8 +94,7 @@ app.post('/signup', (req, res) => {
     if (exists) {
       res.status(409).send("That username already exists!")
     } else {
-      addUser(req.body.username, req.body.password)
-        .then(() => res.send("Welcome" + req.body.username))
+      addUser(req.body.username, req.body.password).then(() => res.send("Welcome" + req.body.username))
     }}
   )
 })
@@ -93,16 +103,21 @@ app.post('/login', (req, res) => {
   var token = uuidv1()
   verifyUser(req.body.username, req.body.password).then((verified) => {
     if (verified) {
-      res.status(200).cookie("token", token).send("Success")
-      storeToken(req.body.username, token)
+      storeToken(req.body.username, token).then((complete) => {
+        res.status(200).cookie("token", token).send("Success")
+      })
     } else {
       res.status(401).send("Unsuccessful login, please make sure you correctly typed your username/password!")
     }
   })
 })
 
-app.post('/tweet/:id', authenticate, (req, res) => {
-  res.status(200).send("You've tweeted")
+app.post('/tweets', authenticate, (req, res) => {
+  saveTweet(req.user.username, req.body.tweet).then((res) => {
+    return getUserTweets(req.user.username)
+  }).then((tweets) => {
+    res.status(200).json({tweets: tweets})
+  })
 })
 
 app.delete('/delete', (req, res) => {
@@ -114,7 +129,9 @@ app.get('/logout', (req,res) => {
 })
 
 app.get('/timeline', authenticate, (req, res) => {
-  res.status(200).json({username: req.user.username, id: req.user.id})
+  getUserTweets(req.user.username).then((tweets) => {
+    res.status(200).json({username: req.user.username, id: req.user.id, tweets: tweets})
+  })
 })
 
 app.get('/*', (req, res) => {

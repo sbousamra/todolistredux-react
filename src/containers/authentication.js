@@ -22,7 +22,7 @@ export default function(Component) {
     return ({
       checkAuth: () => {
         axios.get('/timeline').then((res) => {
-          dispatch(actions.authenticateAction(res.data.username, res.data.id, res.data.twitterData))
+          dispatch(actions.authenticateAction(res.data.username, res.data.id, res.data.tweets))
         }).catch((error) => {
           console.log(error)
         })
