@@ -29,8 +29,9 @@ export function dispatchSignup(username, password) {
   return function(dispatch) {
     const newUser = {username: username, password: password}
     axios.post('/signup', newUser).then(() => {
-      dispatch(signupAction)
-      dispatch(push("/"))
+      return dispatch(signupAction)
+    }).then(() => {
+      return dispatch(push('/'))
     }).catch((error) => {console.log(error)})  
   }
 }

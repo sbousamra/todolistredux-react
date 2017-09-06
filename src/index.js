@@ -21,7 +21,7 @@ ReactDOM.render(
       <div>
         {isProduction ? <DevTools/> : null}
         <Route exact path="/" component={Authentication(Home)}/>
-        <Route path="/signup" component={() => <Signup/>}/>
+        <Route path="/signup" component={Authentication(Signup)}/>
       </div>
     </BrowserRouter>
   </Provider>,

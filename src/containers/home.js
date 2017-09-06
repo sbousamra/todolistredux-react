@@ -40,8 +40,17 @@ class Home extends React.Component {
         {trends}
       </div>
 
+    const makeTweet = 
+      <div className="card">
+        <div className="card-block">
+          <input placeholder="What's happening?" className="form-control"/>
+          <button className="btn btn-success">Tweet</button>
+        </div>
+      </div>
+
     const tweets = 
       <div className="col-4 signedInUserTweets">
+        {makeTweet}
         <div className="card">
           <div className="card-block">
             <h4 className="card-title">{this.props.username}</h4>

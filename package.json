@@ -41,7 +41,7 @@
     "webpack-dev-server": "^2.5.1"
   },
   "scripts": {
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --env=dev",
     "start": "node server/app.js",
     "build": "webpack",
     "build:dev": "webpack --env=dev --progress --profile --colors",

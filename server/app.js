@@ -23,37 +23,29 @@ function addUser(username, password) {
 }
 
 function verifyUser(username, password) {
-  return (pool.query("SELECT COUNT(username) FROM users WHERE username = $1 AND password = $2", [username, password])
-    .then((res) => {
-      return res.rows[0].count > 0
-    })
-  )
+  return pool.query("SELECT COUNT(username) FROM users WHERE username = $1 AND password = $2", [username, password]).then((res) => {
+    return res.rows[0].count > 0
+  })
 }
 
 function getUserWithToken(token) {
-  return (pool.query("SELECT user_id FROM tokens WHERE id = $1", [token])
-    .then((res) => {
-      return pool.query("SELECT username, id FROM users WHERE id = $1", [res.rows[0].user_id])
-    }).then((res) => {
-      return res.rows[0]
-    })
-  )
+  return pool.query("SELECT user_id FROM tokens WHERE id = $1", [token]).then((res) => {
+    return pool.query("SELECT username, id FROM users WHERE id = $1", [res.rows[0].user_id])
+  }).then((res) => {
+    return res.rows[0]
+  })
 }
 
 function storeToken(username, token) {
-  return (pool.query("SELECT id FROM users WHERE username = $1", [username])
-    .then((res) => {
-      return pool.query("INSERT INTO tokens (id, user_id) VALUES($1, $2)", [token, res.rows[0].id])
-    })
-  )
+  return pool.query("SELECT id FROM users WHERE username = $1", [username]).then((res) => {
+    return pool.query("INSERT INTO tokens (id, user_id) VALUES($1, $2)", [token, res.rows[0].id])
+  })
 }
 
 function verifyToken(token) {
-  return (pool.query("SELECT COUNT(id) FROM tokens WHERE id = $1", [token])
-    .then((res) => {
-      return res.rows[0].count > 0
-    })
-  )
+  return pool.query("SELECT COUNT(id) FROM tokens WHERE id = $1", [token]).then((res) => {
+    return res.rows[0].count > 0
+  })
 }
 
 function authenticate(req, res, next) {
@@ -69,8 +61,10 @@ function authenticate(req, res, next) {
   })
 }
 
-function saveTweet(tweets, tweet) {
-  lodash.extend(tweets, {[randId()]: tweet})
+function saveTweet(username, tweet) {
+  return pool.query("SELECT id FROM users WHERE username = $1", [username]).then((res) => {
+    return pool.query("INSERT INTO tweets (id, user_id, body) VALUES($1, $2, $3)", [uuidv1(), res.rows[0], tweet])
+  })
 }
 
 function deleteTweet(tweets, tweetId) {
@@ -79,11 +73,9 @@ function deleteTweet(tweets, tweetId) {
 }
 
 function doesUserExist(username) {
-  return (pool.query("SELECT COUNT(username) FROM users WHERE username = $1", [username])
-    .then((res) => {
-      return res.rows[0].count > 0
-    })
-  )
+  return pool.query("SELECT COUNT(username) FROM users WHERE username = $1", [username]).then((res) => {
+    return res.rows[0].count > 0
+  })
 }
 
 app.post('/signup', (req, res) => {
@@ -109,7 +101,7 @@ app.post('/login', (req, res) => {
   })
 })
 
-app.post('/tweet/:id', (req, res) => {
+app.post('/tweet/:id', authenticate, (req, res) => {
   res.status(200).send("You've tweeted")
 })
 

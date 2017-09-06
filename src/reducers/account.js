@@ -4,7 +4,7 @@ import lodash from 'lodash';
 function account(state = {}, action) {
   switch (action.type) {
     case "SIGNUP":
-      return lodash.extend({}, state, {signedUp: true})
+      return state
     case "LOGIN":
       return lodash.extend({}, state, {loggedIn: true, username: action.username})
     case "LOGOUT":

@@ -1,3 +1,6 @@
 module.exports = function(env) {
-  return require(`./webpack.config.${env}.js`)
+ if (!env) {
+   throw new Error("Env is required")
+ }
+ return require(`./webpack.config.${env}.js`)
 }
