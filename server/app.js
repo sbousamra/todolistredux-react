@@ -1,5 +1,13 @@
-const repository = require('./repository')
+const Repository = require('./repository')
+const repository = new Repository({
+  user: 'bass',
+  host: 'localhost',
+  database: 'twitterclone',
+  password: '',
+  port: 5432,
+})
 const middleware = require('./middleware')
+const authenticate = middleware.authenticate(repository)
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -33,7 +41,7 @@ app.post('/login', (req, res) => {
   })
 })
 
-app.post('/tweets', middleware.authenticate, (req, res) => {
+app.post('/tweets', authenticate, (req, res) => {
   repository.saveTweet(req.user.username, req.body.tweet).then((res) => {
     return repository.getUserTweets(req.user.username)
   }).then((tweets) => {
@@ -49,7 +57,7 @@ app.get('/logout', (req,res) => {
   res.status(200).cookie("token", "deleting", {expires: new Date(0)}).end()
 })
 
-app.get('/timeline', middleware.authenticate, (req, res) => {
+app.get('/timeline', authenticate, (req, res) => {
   repository.getUserTweets(req.user.username).then((tweets) => {
     res.status(200).json({username: req.user.username, id: req.user.id, tweets: tweets})
   })

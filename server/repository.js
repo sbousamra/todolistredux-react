@@ -1,10 +1,11 @@
 const lodash = require('lodash');
 const uuidv1 = require('uuid/v1');
+const middleware = require('./middleware');
 const {Pool} = require('pg');
 
 class Repository {
-  constructor(pool) {
-    this.pool = pool
+  constructor(db) {
+    this.pool = new Pool(db)
   }
 
   addUser(username, password) {
@@ -68,15 +69,4 @@ class Repository {
   }
 }
 
-const pool = new Pool({
-  user: 'bass',
-  host: 'localhost',
-  database: 'twitterclone',
-  password: '',
-  port: 5432,
-})
-
-const repository = new Repository(pool)
-
-
-module.exports = repository
+module.exports = Repository
